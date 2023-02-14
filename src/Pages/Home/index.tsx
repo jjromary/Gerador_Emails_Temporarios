@@ -1,7 +1,13 @@
 import copyIcon from "../../assets/copy.svg";
 import refreshIcon from "../../assets/refresh.svg";
-import { FieldContainer, Header, HomeContainer, ProvisoryContent, UpdateDataContainer } from "./styles";
-
+import Inbox from "../../components/Inbox";
+import {
+  FieldContainer,
+  Header,
+  HomeContainer,
+  ProvisoryContent,
+  UpdateDataContainer,
+} from "./styles";
 
 export default function Home() {
   return (
@@ -28,6 +34,8 @@ export default function Home() {
           Refresh
         </button>
       </UpdateDataContainer>
+
+      <Inbox />
     </HomeContainer>
-  )
+  );
 }
