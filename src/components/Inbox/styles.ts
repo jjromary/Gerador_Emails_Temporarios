@@ -7,6 +7,8 @@ export const InboxContainer = styled.div`
   margin-top: 2rem;
   border-top: none;
   border: 1px solid ${(props) => props.theme["skyeblue"]};
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 9px;
 `;
 
 export const InboxList = styled.div`
@@ -26,11 +28,10 @@ export const BodyEmailHeader = styled.div`
 `;
 
 export const BodyEmail = styled.div`
-  width: 60%;
   height: 600px;
-  /* background-color: ${(props) => props.theme["gray100"]}; */
-  background-color: #bfdbfe;
   border-left: 1px solid ${(props) => props.theme["skyeblue"]};
+  background-color: ${(props) => props.theme["blue50"]};
+  border-radius: 8px;
 `;
 
 export const ImboxItem = styled.div`

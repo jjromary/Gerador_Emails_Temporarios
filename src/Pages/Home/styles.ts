@@ -3,11 +3,16 @@ import styled from "styled-components";
 export const HomeContainer = styled.div`
   width: 100%;
   margin: 0 auto;
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 0.875rem;
+
+  -webkit-box-shadow: 0px 10px 13px -7px #000000,
+    5px 5px 15px 5px rgba(0, 0, 0, 0);
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 
   @media (min-width: 768px) {
     width: 768px;
@@ -44,9 +49,9 @@ export const ProvisoryContent = styled.div`
   border: 1px solid ${(props) => props.theme["skyeblue"]};
 
   input {
-    width: 70%;
+    width: 75%;
     border: none;
-    padding-left: 0.5rem;
+    margin-left: 0.5rem;
     font-size: 0.75rem;
 
     :focus {
@@ -55,6 +60,7 @@ export const ProvisoryContent = styled.div`
 
     @media (min-width: 640px) {
       font-size: 1rem;
+      width: 70%;
     }
   }
 
@@ -63,13 +69,18 @@ export const ProvisoryContent = styled.div`
     align-items: center;
     justify-content: center;
     gap: 0.25rem;
-    width: 30%;
+    width: 25%;
     border: none;
-    border-left: 1px solid ${(props) => props.theme["gray100"]};
+    border-left: 1px solid ${(props) => props.theme["skyeblue"]};
     background: transparent;
     height: 30px;
-    font-size: 1rem;
+    font-size: 0.75rem;
     cursor: pointer;
+
+    @media (min-width: 640px) {
+      font-size: 1rem;
+      width: 30%;
+    }
   }
 `;
 
