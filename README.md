@@ -33,7 +33,7 @@ Uma boa maneira de lidar com isso é usar um endereço de e-mail temporário se 
 
 ## Tela para Desktop
 
-![Desktop](assets/desktop.png)
+![Desktop](src/assets/desktop.png)
 
 ## Tela para Mobile
 
