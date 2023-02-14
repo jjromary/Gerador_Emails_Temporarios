@@ -1,5 +1,6 @@
 import axios from "axios";
 
 export const apiEmail = axios.create({
-  baseURL: "https://cors-anywhere.herokuapp.com/https://dropmail.me/api/graphql",
+  baseURL: "https://web-production-9a329.up.railway.app/https://dropmail.me/api/graphql",
 });
+
