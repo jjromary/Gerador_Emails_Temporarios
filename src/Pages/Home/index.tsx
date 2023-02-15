@@ -1,10 +1,10 @@
 import { gql } from "graphql-request";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import copyIcon from "../../assets/copy.svg";
 import refreshIcon from "../../assets/refresh.svg";
 import ButtonWithIcon from "../../components/buttonWithIcon";
 import Inbox from "../../components/Inbox";
-import { useQuery, useQueryReceived } from "../../Hooks/graphql";
+import { apiEmail } from "../../lib/axios";
 import {
   FieldContainer,
   Header,
@@ -14,6 +14,10 @@ import {
 } from "./styles";
 
 export interface Session {
+  introduceSession: IntroduceSession;
+}
+
+export interface IntroduceSession {
   id: string;
   expiresAt: Date;
   addresses: Address[];
@@ -23,56 +27,91 @@ export interface Address {
   address: string;
 }
 
+// inbox
+
+export interface Inbox {
+  data: Data;
+}
+
+export interface Data {
+  session: Session;
+}
+
+export interface Session {
+  mails: any[];
+}
+
 export default function Home() {
-  const [sessionCurrent, setSessionCurrent] = useState<any>();
-  // const [inbox, setInbox] = useState<any>([]);
+  const [userSession, setUserSession] = useState<Session>();
+  const [inboxSession, setInboxSession] = useState<Inbox>();
 
-  const query = gql`
-    mutation {
-      introduceSession {
-        id
-        expiresAt
-        addresses {
-          address
+  let querySession = {
+    query: gql`
+      mutation {
+        introduceSession {
+          id
+          expiresAt
+          addresses {
+            address
+          }
         }
       }
-    }
-  `;
+    `,
+  };
 
-  const queryReceived = gql`
-    query {
-      session(id: "U2Vzc2lvbjoLuKeBcWdIDY9MBaCbzQS6") {
-        mails {
-          rawSize
-          fromAddr
-          toAddr
-          downloadUrl
-          text
-          headerSubject
-        }
-      }
-    }
-  `;
+  const loadSession = async () => {
+    const response = await apiEmail.post("/tokentest", querySession);
+    setUserSession(response.data?.data);
+    // setUserSession(response.data?.data);
+  };
 
-  const data = useQuery(query);
-  const dataReceived = useQueryReceived(queryReceived);
-
-  console.log("teste", dataReceived.data);
-  console.log("teste DATA", data.data);
-
-  let emailDisposable = data.data?.data.introduceSession.addresses.map(
+  let emailDisposable = userSession?.introduceSession.addresses.map(
     function (item: { address: any }) {
       return item.address;
     }
   );
 
-  const idSession = data.data?.data.introduceSession.id;
+  let idSession = userSession?.introduceSession.id;
+  let queryInbox = {
+    query: gql`
+      query ($id: ID!) {
+        session(id: $id) {
+          mails {
+            rawSize
+            fromAddr
+            toAddr
+            downloadUrl
+            text
+            headerSubject
+          }
+        }
+      }
+    `,
+    variables: {
+      id: idSession,
+    },
+  };
 
-  console.log("id", idSession);
+  const loadInbox = async () => {
+    const response = await apiEmail.post("/tokentest", queryInbox);
+    setInboxSession(response.data);
+  };
+
+  useEffect(() => {
+    loadSession();
+  }, []);
+
+  useEffect(() => {
+    loadInbox();
+  }, []);
+
+  console.log("teste", userSession?.introduceSession);
+  console.log("Inbox", inboxSession?.data);
 
   return (
     <HomeContainer>
-      {/* <pre>{JSON.stringify(sessionCurrent, null, 2)}</pre> */}
+      <pre>{JSON.stringify(userSession, null, 2)}</pre>
+      <pre>{JSON.stringify(inboxSession, null, 2)}</pre>
       <Header>
         <h1>Disposable Email</h1>
       </Header>
