@@ -1,32 +1,28 @@
+import InboxItem from "../InboxItem";
 import {
   BodyEmail,
   BodyEmailContent,
   BodyEmailHeader,
   EmailText,
-  HeaderInbox,
-  ImboxItem,
+  EmailTitle,
   InboxContainer,
+  InboxHeader,
   InboxList,
-  TitleEmail,
 } from "./styles";
 
 export default function Inbox() {
   return (
     <InboxContainer>
       <InboxList>
-        <HeaderInbox>Inbox</HeaderInbox>
-        <ImboxItem>
-          <button>
-            <strong>Hello</strong>
-            <span>Welcome</span>
-            <span>Text Text Text Text Text Text Text Text</span>
-          </button>
-        </ImboxItem>
+        <InboxHeader>Inbox</InboxHeader>
+        <InboxItem />
+        <InboxItem />
+        <InboxItem />
       </InboxList>
       <BodyEmail>
         <BodyEmailHeader />
         <BodyEmailContent>
-          <TitleEmail>
+          <EmailTitle>
             Welcome
             <EmailText>
               Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -38,7 +34,7 @@ export default function Inbox() {
               1500s, when an unknown printer took a galley of type and scrambled
               it to make a type specimen book.
             </EmailText>
-          </TitleEmail>
+          </EmailTitle>
         </BodyEmailContent>
       </BodyEmail>
     </InboxContainer>

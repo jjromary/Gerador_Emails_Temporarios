@@ -15,7 +15,7 @@ export const InboxList = styled.div`
   width: 40%;
 `;
 
-export const HeaderInbox = styled.div`
+export const InboxHeader = styled.div`
   padding-left: 2px;
   height: 28px;
   border-bottom: 1px solid ${(props) => props.theme["skyeblue"]};
@@ -34,41 +34,11 @@ export const BodyEmail = styled.div`
   border-radius: 8px;
 `;
 
-export const ImboxItem = styled.div`
-  button {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-left: 2px;
-    font-size: 0.75rem;
-    border: none;
-    border-bottom: 1px solid ${(props) => props.theme["gray300"]};
-    background: transparent;
-
-    @media (min-width: 640px) {
-      font-size: 1rem;
-    }
-
-    span {
-      max-width: 110px;
-      font-size: 0.75rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-
-      @media (min-width: 640px) {
-        font-size: 1rem;
-        max-width: 200px;
-      }
-    }
-  }
-`;
-
 export const BodyEmailContent = styled.div`
   padding: 0.2rem;
 `;
 
-export const TitleEmail = styled.div`
+export const EmailTitle = styled.div`
   font-size: 0.75rem;
   border: none;
 
