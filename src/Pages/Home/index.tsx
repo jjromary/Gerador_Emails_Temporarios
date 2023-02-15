@@ -41,7 +41,7 @@ export default function Home() {
 
   const queryReceived = gql`
     query {
-      session(id: "U2Vzc2lvbjqCAQZz58JLG4SV-D27uk3P") {
+      session(id: "U2Vzc2lvbjoLuKeBcWdIDY9MBaCbzQS6") {
         mails {
           rawSize
           fromAddr
@@ -57,11 +57,18 @@ export default function Home() {
   const data = useQuery(query);
   const dataReceived = useQueryReceived(queryReceived);
 
-  var emailDisposable = data.data?.data.introduceSession.addresses.map(
+  console.log("teste", dataReceived.data);
+  console.log("teste DATA", data.data);
+
+  let emailDisposable = data.data?.data.introduceSession.addresses.map(
     function (item: { address: any }) {
       return item.address;
     }
   );
+
+  const idSession = data.data?.data.introduceSession.id;
+
+  console.log("id", idSession);
 
   return (
     <HomeContainer>
