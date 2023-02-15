@@ -13,7 +13,6 @@ export const ButtonContainer = styled.button<ButtonContainerProps>`
   justify-content: center;
   gap: 0.25rem;
   border: none;
-  border-left: 1px solid ${(props) => props.theme["skyeblue"]};
   background: transparent;
   font-size: 0.75rem;
   cursor: pointer;

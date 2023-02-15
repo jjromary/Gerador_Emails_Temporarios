@@ -50,9 +50,10 @@ export const ProvisoryContent = styled.div`
 
   input {
     width: 75%;
-    border: none;
     margin-left: 0.5rem;
     font-size: 0.75rem;
+    border: none;
+    border-right: 1px solid ${(props) => props.theme["skyeblue"]};
 
     :focus {
       outline: 0;
@@ -61,25 +62,6 @@ export const ProvisoryContent = styled.div`
     @media (min-width: 640px) {
       font-size: 1rem;
       width: 70%;
-    }
-  }
-
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.25rem;
-    width: 25%;
-    border: none;
-    border-left: 1px solid ${(props) => props.theme["skyeblue"]};
-    background: transparent;
-    height: 30px;
-    font-size: 0.75rem;
-    cursor: pointer;
-
-    @media (min-width: 640px) {
-      font-size: 1rem;
-      width: 30%;
     }
   }
 `;
@@ -93,14 +75,5 @@ export const UpdateDataContainer = styled.div`
 
   @media (min-width: 640px) {
     width: 50%;
-  }
-
-  button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.25rem;
-    border: none;
-    background: transparent;
   }
 `;
