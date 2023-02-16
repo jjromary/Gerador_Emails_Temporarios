@@ -2,24 +2,6 @@ import { gql } from "graphql-request";
 import { createContext, ReactNode, useState } from "react";
 import { apiEmail } from "../lib/axios";
 
-interface Session {
-  addresses: {
-    address: string;
-  };
-  id: string;
-  expirateAt: string;
-}
-
-// interface IntroduceSession {
-//   id: string;
-//   expiresAt: Date;
-//   addresses: Address[];
-// }
-
-// interface Address {
-//   address: string;
-// }
-
 interface SessionContextype {
   userSession: any;
   loadSession: () => Promise<void>;

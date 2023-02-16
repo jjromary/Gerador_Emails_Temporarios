@@ -6,6 +6,7 @@ interface ButtonWithIconProps {
   width?: string;
   height?: string;
   alt: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export default function ButtonWithIcon({
@@ -14,9 +15,10 @@ export default function ButtonWithIcon({
   height,
   width,
   alt,
+  onClick,
 }: ButtonWithIconProps) {
   return (
-    <ButtonContainer width={width} height={height}>
+    <ButtonContainer width={width} height={height} onClick={onClick}>
       {icon && <img src={icon} alt={alt} />}
       {title}
     </ButtonContainer>
