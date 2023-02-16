@@ -1,7 +1,7 @@
 import { ButtonContainer } from "./styles";
 
 interface ButtonWithIconProps {
-  icon: string;
+  icon?: string;
   title: string;
   width?: string;
   height?: string;
@@ -17,7 +17,7 @@ export default function ButtonWithIcon({
 }: ButtonWithIconProps) {
   return (
     <ButtonContainer width={width} height={height}>
-      <img src={icon} alt={alt} />
+      {icon && <img src={icon} alt={alt} />}
       {title}
     </ButtonContainer>
   );

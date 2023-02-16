@@ -1,10 +1,9 @@
-import { gql } from "graphql-request";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import copyIcon from "../../assets/copy.svg";
 import refreshIcon from "../../assets/refresh.svg";
 import ButtonWithIcon from "../../components/buttonWithIcon";
 import Inbox from "../../components/Inbox";
-import { apiEmail } from "../../lib/axios";
+import { SessionContext } from "../../Context/sessionContext";
 import {
   FieldContainer,
   Header,
@@ -12,22 +11,6 @@ import {
   ProvisoryContent,
   UpdateDataContainer,
 } from "./styles";
-
-export interface Session {
-  introduceSession: IntroduceSession;
-}
-
-export interface IntroduceSession {
-  id: string;
-  expiresAt: Date;
-  addresses: Address[];
-}
-
-export interface Address {
-  address: string;
-}
-
-// inbox
 
 export interface Inbox {
   data: Data;
@@ -42,76 +25,60 @@ export interface Session {
 }
 
 export default function Home() {
-  const [userSession, setUserSession] = useState<Session>();
   const [inboxSession, setInboxSession] = useState<Inbox>();
+  const [emailDisposable, setEmailDisposable] = useState<string>("");
+  const [currentId, setCurrentId] = useState<string>("");
 
-  let querySession = {
-    query: gql`
-      mutation {
-        introduceSession {
-          id
-          expiresAt
-          addresses {
-            address
-          }
-        }
-      }
-    `,
-  };
+  // let queryInbox = {
+  //   query: gql`
+  //     query ($id: ID!) {
+  //       session(id: $id) {
+  //         mails {
+  //           rawSize
+  //           fromAddr
+  //           toAddr
+  //           downloadUrl
+  //           text
+  //           headerSubject
+  //         }
+  //       }
+  //     }
+  //   `,
+  //   variables: {
+  //     id: idSession,
+  //   },
+  // };
 
-  const loadSession = async () => {
-    const response = await apiEmail.post("/tokentest", querySession);
-    setUserSession(response.data?.data);
-    // setUserSession(response.data?.data);
-  };
+  // const loadInbox = async () => {
+  //   const response = await apiEmail.post("/tokentest", queryInbox);
+  //   setInboxSession(response.data);
+  // };
 
-  let emailDisposable = userSession?.introduceSession.addresses.map(
-    function (item: { address: any }) {
-      return item.address;
-    }
-  );
+  // useEffect(() => {
+  //   loadInbox();
+  // }, []);
 
-  let idSession = userSession?.introduceSession.id;
-  let queryInbox = {
-    query: gql`
-      query ($id: ID!) {
-        session(id: $id) {
-          mails {
-            rawSize
-            fromAddr
-            toAddr
-            downloadUrl
-            text
-            headerSubject
-          }
-        }
-      }
-    `,
-    variables: {
-      id: idSession,
-    },
-  };
-
-  const loadInbox = async () => {
-    const response = await apiEmail.post("/tokentest", queryInbox);
-    setInboxSession(response.data);
-  };
+  const { userSession, loadSession } = useContext(SessionContext);
+  //@ts-ignore
 
   useEffect(() => {
-    loadSession();
-  }, []);
+    setEmailDisposable(userSession?.addresses[0]?.address);
+    setCurrentId(userSession?.id);
+  }, [userSession]);
 
-  useEffect(() => {
-    loadInbox();
-  }, []);
+  if (userSession) {
+    localStorage.setItem("email", emailDisposable);
+  }
+  // console.log("Email", userSession?.addresses[0]?.address);
 
-  console.log("teste", userSession?.introduceSession);
-  console.log("Inbox", inboxSession?.data);
+  // const recoverEmail = localStorage.getItem("email");
 
+  console.log("EmailDisposable", emailDisposable);
+  console.log("CurrentId", currentId);
   return (
     <HomeContainer>
-      <pre>{JSON.stringify(userSession, null, 2)}</pre>
-      <pre>{JSON.stringify(inboxSession, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(userSession, null, 2)}</pre> */}
+      {/* <pre>{JSON.stringify(inboxSession, null, 2)}</pre> */}
       <Header>
         <h1>Disposable Email</h1>
       </Header>
@@ -119,7 +86,7 @@ export default function Home() {
       <FieldContainer>
         <label>Your provisory email address</label>
         <ProvisoryContent>
-          <input type="text" value={emailDisposable} readOnly />
+          <input type="text" value={"oi"} readOnly />
           <ButtonWithIcon
             width="25%"
             height="30px"
@@ -128,6 +95,7 @@ export default function Home() {
             title="Copy"
           />
         </ProvisoryContent>
+        <button onClick={loadSession}>Get emial disposable</button>
       </FieldContainer>
 
       <UpdateDataContainer>
