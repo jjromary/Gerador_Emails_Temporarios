@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import copyIcon from "../../assets/copy.svg";
 import refreshIcon from "../../assets/refresh.svg";
 import ButtonWithIcon from "../../components/buttonWithIcon";
 import Inbox from "../../components/Inbox";
+import { SessionContext } from "../../Context/sessionContext";
 import {
   FieldContainer,
   Header,
@@ -11,6 +13,9 @@ import {
 } from "./styles";
 
 export default function Home() {
+  const { loadSession, loadInbox } = useContext(SessionContext);
+  const emailUser: string = localStorage.getItem("email")!;
+
   return (
     <HomeContainer>
       <Header>
@@ -20,7 +25,11 @@ export default function Home() {
       <FieldContainer>
         <label>Your provisory email address</label>
         <ProvisoryContent>
-          <input type="text" value="joseromarybrandao@gmail.com" readOnly />
+          <input
+            type="text"
+            value={emailUser === "undefined" ? "" : emailUser}
+            readOnly
+          />
           <ButtonWithIcon
             width="25%"
             height="30px"
@@ -29,6 +38,7 @@ export default function Home() {
             title="Copy"
           />
         </ProvisoryContent>
+        <button onClick={loadSession}>Create email disposable</button>
       </FieldContainer>
 
       <UpdateDataContainer>
@@ -37,6 +47,7 @@ export default function Home() {
           icon={refreshIcon}
           alt="Icon refresh inbox email address"
           title="Refresh"
+          onClick={loadInbox}
         />
       </UpdateDataContainer>
 

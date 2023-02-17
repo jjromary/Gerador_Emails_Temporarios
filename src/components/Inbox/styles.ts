@@ -12,7 +12,7 @@ export const InboxContainer = styled.div`
 `;
 
 export const InboxList = styled.div`
-  width: 40%;
+  min-width: 40%;
 `;
 
 export const InboxHeader = styled.div`
@@ -28,6 +28,7 @@ export const BodyEmailHeader = styled.div`
 `;
 
 export const BodyEmail = styled.div`
+  width: 60%;
   height: 600px;
   border-left: 1px solid ${(props) => props.theme["skyeblue"]};
   background-color: ${(props) => props.theme["blue50"]};
