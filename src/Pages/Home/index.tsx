@@ -16,6 +16,10 @@ export default function Home() {
   const { loadSession, loadInbox } = useContext(SessionContext);
   const emailUser: string = localStorage.getItem("email")!;
 
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(emailUser);
+  };
+
   return (
     <HomeContainer>
       <Header>
@@ -29,6 +33,7 @@ export default function Home() {
             type="text"
             value={emailUser === "undefined" ? "" : emailUser}
             readOnly
+            // onChange={handleInputChange}
           />
           <ButtonWithIcon
             width="25%"
@@ -36,6 +41,7 @@ export default function Home() {
             icon={copyIcon}
             alt="Icon copy email address"
             title="Copy"
+            onClick={() => handleCopyClick()}
           />
         </ProvisoryContent>
         <button onClick={loadSession}>Create email disposable</button>
@@ -54,4 +60,7 @@ export default function Home() {
       <Inbox />
     </HomeContainer>
   );
+}
+function copy(copyText: string) {
+  throw new Error("Function not implemented.");
 }

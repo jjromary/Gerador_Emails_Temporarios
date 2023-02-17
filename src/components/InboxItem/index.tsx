@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import { ImboxItemContainer } from "./styles";
 
 interface InboxItemProps {
@@ -6,7 +5,6 @@ interface InboxItemProps {
   headerSubject: string;
   text: string;
   onClick?: any;
-  children: ReactNode;
 }
 
 export default function InboxItem({
@@ -14,14 +12,12 @@ export default function InboxItem({
   headerSubject,
   text,
   onClick,
-  children,
 }: InboxItemProps) {
   return (
-    <ImboxItemContainer>
+    <ImboxItemContainer onClick={onClick}>
       <strong>{headerSubject}</strong>
       <span>{fromAddr}</span>
       <span>{text}</span>
-      {children}
     </ImboxItemContainer>
   );
 }

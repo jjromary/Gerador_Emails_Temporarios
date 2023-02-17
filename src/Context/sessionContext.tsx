@@ -29,8 +29,35 @@ export default function SessionProvider({ children }: sessionProviderProps) {
 
   const [emailDisposable, setEmailDisposable] = useState<string>("");
   const [currentId, setCurrentId] = useState<string>("");
+  const [expiresAt, setExpiresAt] = useState<string>("");
+  const [isExpirate, setIsExpirate] = useState(false);
 
-  const teste = localStorage.getItem("idSession");
+  const recoverDate = localStorage.getItem("expirate");
+  const formattedCurrentDate: Date = new Date(recoverDate!);
+
+  const verifyExpirateSession = () => {
+    if (new Date() > formattedCurrentDate) {
+      setIsExpirate(true);
+      localStorage.clear();
+    } else {
+      setIsExpirate(false);
+    }
+
+    console.log(isExpirate);
+  };
+
+  setTimeout(() => {
+    verifyExpirateSession();
+    console.log("Current!:", new Date());
+    console.log("Expirate:", formattedCurrentDate);
+    if (isExpirate === true) {
+      refreshPage();
+      // window.alert("Sessão expirada!");
+    }
+    console.log("verificano validade", isExpirate);
+  }, 60000); //1 minute
+
+  const idSessionNow = localStorage.getItem("idSession");
 
   const querySession = {
     query: gql`
@@ -62,7 +89,7 @@ export default function SessionProvider({ children }: sessionProviderProps) {
       }
     `,
     variables: {
-      id: teste,
+      id: idSessionNow,
     },
   };
 
@@ -79,6 +106,7 @@ export default function SessionProvider({ children }: sessionProviderProps) {
   const loadSession = async () => {
     const response = await apiEmail.post("/tokentest", querySession);
     setUserSession(response.data?.data.introduceSession);
+
     localStorage.removeItem("inbox");
     // refreshPage();
   };
@@ -94,11 +122,13 @@ export default function SessionProvider({ children }: sessionProviderProps) {
   useEffect(() => {
     setEmailDisposable(userSession?.addresses[0]?.address);
     setCurrentId(userSession?.id);
+    setExpiresAt(userSession?.expiresAt);
   }, [userSession]);
 
   if (userSession) {
     localStorage.setItem("idSession", currentId);
     localStorage.setItem("email", emailDisposable);
+    localStorage.setItem("expirate", expiresAt);
   }
 
   return (
