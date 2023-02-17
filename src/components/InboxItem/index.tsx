@@ -1,13 +1,27 @@
+import { ReactNode } from "react";
 import { ImboxItemContainer } from "./styles";
 
-export default function InboxItem() {
+interface InboxItemProps {
+  fromAddr: string;
+  headerSubject: string;
+  text: string;
+  onClick?: any;
+  children: ReactNode;
+}
+
+export default function InboxItem({
+  fromAddr,
+  headerSubject,
+  text,
+  onClick,
+  children,
+}: InboxItemProps) {
   return (
     <ImboxItemContainer>
-      <button>
-        <strong>Hello</strong>
-        <span>Welcome</span>
-        <span>Text Text Text Text Text Text Text Text</span>
-      </button>
+      <strong>{headerSubject}</strong>
+      <span>{fromAddr}</span>
+      <span>{text}</span>
+      {children}
     </ImboxItemContainer>
   );
 }
