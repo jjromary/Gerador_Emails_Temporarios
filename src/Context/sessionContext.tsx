@@ -52,7 +52,7 @@ export default function SessionProvider({ children }: sessionProviderProps) {
     if (isExpirate === true) {
       refreshPage();
     }
-  }, 1000 * 60); //1 minute
+  }, 1000 * 60); // 1 minute
 
   const idSessionNow = localStorage.getItem("idSession");
 
@@ -114,11 +114,7 @@ export default function SessionProvider({ children }: sessionProviderProps) {
     saveLocalInbox();
   };
 
-  setTimeout(() => {
-    if (emailDisposable) {
-      loadInbox();
-    }
-  }, 1000 * 15);
+  setTimeout(loadInbox, 1000 * 15); // 15 segundos
 
   useEffect(() => {
     setEmailDisposable(userSession?.addresses[0]?.address);

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import copyIcon from "../../assets/copy.svg";
 import refreshIcon from "../../assets/refresh.svg";
 import settings from "../../assets/settings.svg";
@@ -15,7 +15,8 @@ import {
 } from "./styles";
 
 export default function Home() {
-  const { loadSession, loadInbox } = useContext(SessionContext);
+  const [verifyNewEmail, setVerifyNewEmail] = useState<number>(0);
+  const { loadSession, loadInbox, inboxSession } = useContext(SessionContext);
   const emailUser: string = localStorage.getItem("email")!;
 
   const handleCopyClick = () => {
@@ -23,14 +24,25 @@ export default function Home() {
   };
 
   const handleNotificationClick = () => {
-    Notification.requestPermission().then((permission) => {
-      if (permission === "granted") {
-        new Notification("Notification Title", {
-          body: "Notification Body",
-        });
-      }
-    });
+    Notification.requestPermission();
   };
+
+  const notifyNewEmail = () => {
+    if (verifyNewEmail < inboxSession?.length) {
+      new Notification("New email!", {
+        body: "You have a new email in yor inbox!",
+      });
+      setVerifyNewEmail(inboxSession?.length);
+    }
+  };
+
+  useEffect(() => {
+    notifyNewEmail();
+  }, [inboxSession]);
+
+  useEffect(() => {
+    setVerifyNewEmail(inboxSession?.length);
+  }, []);
 
   return (
     <HomeContainer>
