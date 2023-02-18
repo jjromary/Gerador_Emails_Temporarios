@@ -1,3 +1,69 @@
+</p>
+<h1 align="center">
+   Disposable Email  
+</h1>
+
+<h4 align="center"> 
+	✅  Disposable email| Concluído ✅
+</h4>
+
+
+</p>
+
+## 💻 Sobre o projeto
+
+ - Sites e serviços online geralmente exigem um endereço de e-mail válido para registrar, acessar ou receber conteúdo protegido, etc. No entanto, o problema é que alguns desses sites podem usar nossos endereços de e-mail para enviar mensagens indesejadas. As pessoas não querem se preocupar mais com spam, propagandas no email, hackers e ataques de robôs.
+
+Uma boa maneira de lidar com isso é usar um endereço de e-mail temporário se você não tiver certeza de que este site é absolutamente confiável e confiável. Dessa forma, você pode manter seus e-mails longe de spam e proteger sua privacidade.
+ - Link de acesso: 
+
+
+## 🛠 Tecnologias
+
+As seguintes ferramentas foram usadas na construção do projeto:
+
+
+ [Vite](https://vitejs.dev/) + [React](https://reactjs.org/) + [TypeScript](https://www.typescriptlang.org/) + [React-Router-DOM](https://reactrouter.com/en/main) + [Axios](https://axios-http.com/ptbr/docs/intro) + [Styled-Components](https://styled-components.com/) 
+ 
+ ## ⚙️ Funcionalidades
+
+- [x] Gerar um endereço de email temporário.
+- [x] Copiar o endereço de email gerado.
+- [x] Visualizar a caixa de entrada deste email.
+- [x] botão chamado "Receber notificações".
+
+## 🚀 Como executar o projeto
+
+Clone o projeto em sua máquina: 
+```sh 
+git@github.com:jjromary/disposable-email.git
+```
+<br />
+
+Instale as dependências: 
+```sh 
+npm install
+```
+<br />
+
+Inicie o projeto: 
+```sh
+npm run dev
+````
+<br />
+
+> Nota: caso tenha problemas de CORS, sugerimos que utilize uma ferramenta como, por exemplo, [https://cors-anywhere.herokuapp.com](https://cors-anywhere.herokuapp.com)
+
+
+A aplicação será aberta na porta:3000 - acesse http://localhost:5173
+
+<br />
+
+
+Feito com ❤️ por José Romary Brandão 👋🏽 [Entre em contato!](https://www.linkedin.com/in/joseromarybrandao/)
+
+---
+
 # DropMail.me Challenge
 
 ## Introdução
