@@ -31,22 +31,13 @@ export default function Inbox() {
             key: Key | null | undefined
           ) => {
             return (
-              <>
-                <InboxItem
-                  key={key}
-                  fromAddr={inbox.fromAddr}
-                  headerSubject={inbox.headerSubject}
-                  text={inbox.text}
-                >
-                  <button
-                    onClick={() =>
-                      emailDetails(inbox.text, inbox.headerSubject)
-                    }
-                  >
-                    ler email
-                  </button>
-                </InboxItem>
-              </>
+              <InboxItem
+                key={key}
+                fromAddr={inbox.fromAddr}
+                headerSubject={inbox.headerSubject}
+                text={inbox.text}
+                onClick={() => emailDetails(inbox.text, inbox.headerSubject)}
+              />
             );
           }
         )}

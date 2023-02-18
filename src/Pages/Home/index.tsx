@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import copyIcon from "../../assets/copy.svg";
 import refreshIcon from "../../assets/refresh.svg";
+import settings from "../../assets/settings.svg";
 import ButtonWithIcon from "../../components/buttonWithIcon";
 import Inbox from "../../components/Inbox";
 import { SessionContext } from "../../Context/sessionContext";
 import {
+  ButtonContainer,
   FieldContainer,
   Header,
   HomeContainer,
@@ -15,6 +17,20 @@ import {
 export default function Home() {
   const { loadSession, loadInbox } = useContext(SessionContext);
   const emailUser: string = localStorage.getItem("email")!;
+
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(emailUser);
+  };
+
+  const handleNotificationClick = () => {
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        new Notification("Notification Title", {
+          body: "Notification Body",
+        });
+      }
+    });
+  };
 
   return (
     <HomeContainer>
@@ -36,9 +52,12 @@ export default function Home() {
             icon={copyIcon}
             alt="Icon copy email address"
             title="Copy"
+            onClick={() => handleCopyClick()}
           />
         </ProvisoryContent>
-        <button onClick={loadSession}>Create email disposable</button>
+        <ButtonContainer>
+          <button onClick={loadSession}>Create email disposable</button>
+        </ButtonContainer>
       </FieldContainer>
 
       <UpdateDataContainer>
@@ -48,6 +67,13 @@ export default function Home() {
           alt="Icon refresh inbox email address"
           title="Refresh"
           onClick={loadInbox}
+        />
+
+        <ButtonWithIcon
+          icon={settings}
+          title="Notification ON/Off"
+          alt="Open Settings"
+          onClick={handleNotificationClick}
         />
       </UpdateDataContainer>
 

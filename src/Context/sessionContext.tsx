@@ -29,8 +29,32 @@ export default function SessionProvider({ children }: sessionProviderProps) {
 
   const [emailDisposable, setEmailDisposable] = useState<string>("");
   const [currentId, setCurrentId] = useState<string>("");
+  const [expiresAt, setExpiresAt] = useState<string>("");
+  const [isExpirate, setIsExpirate] = useState(false);
 
-  const teste = localStorage.getItem("idSession");
+  const recoverDate = localStorage.getItem("expirate");
+  const formattedCurrentDate: Date = new Date(recoverDate!);
+
+  const verifyExpirateSession = () => {
+    if (new Date() > formattedCurrentDate) {
+      setIsExpirate(true);
+      localStorage.clear();
+      localStorage.removeItem("expirate");
+      localStorage.removeItem("email");
+      localStorage.removeItem("idSession");
+    } else {
+      setIsExpirate(false);
+    }
+  };
+
+  setTimeout(() => {
+    verifyExpirateSession();
+    if (isExpirate === true) {
+      refreshPage();
+    }
+  }, 1000 * 60); //1 minute
+
+  const idSessionNow = localStorage.getItem("idSession");
 
   const querySession = {
     query: gql`
@@ -62,7 +86,7 @@ export default function SessionProvider({ children }: sessionProviderProps) {
       }
     `,
     variables: {
-      id: teste,
+      id: idSessionNow,
     },
   };
 
@@ -72,15 +96,16 @@ export default function SessionProvider({ children }: sessionProviderProps) {
 
   const saveLocalInbox = () => {
     const savedIinbox = JSON.stringify(inboxSession);
-    console.log("inbox", savedIinbox);
     localStorage.setItem("inbox", savedIinbox);
+
+    refreshPage;
   };
 
   const loadSession = async () => {
     const response = await apiEmail.post("/tokentest", querySession);
     setUserSession(response.data?.data.introduceSession);
+
     localStorage.removeItem("inbox");
-    // refreshPage();
   };
 
   const loadInbox = async () => {
@@ -89,16 +114,22 @@ export default function SessionProvider({ children }: sessionProviderProps) {
     saveLocalInbox();
   };
 
-  // setTimeout(loadInbox, 15000);
+  setTimeout(() => {
+    if (emailDisposable) {
+      loadInbox();
+    }
+  }, 1000 * 15);
 
   useEffect(() => {
     setEmailDisposable(userSession?.addresses[0]?.address);
     setCurrentId(userSession?.id);
+    setExpiresAt(userSession?.expiresAt);
   }, [userSession]);
 
   if (userSession) {
     localStorage.setItem("idSession", currentId);
     localStorage.setItem("email", emailDisposable);
+    localStorage.setItem("expirate", expiresAt);
   }
 
   return (
