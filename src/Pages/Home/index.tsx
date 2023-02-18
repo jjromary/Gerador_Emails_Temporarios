@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import copyIcon from "../../assets/copy.svg";
 import refreshIcon from "../../assets/refresh.svg";
+import settings from "../../assets/settings.svg";
 import ButtonWithIcon from "../../components/buttonWithIcon";
 import Inbox from "../../components/Inbox";
 import { SessionContext } from "../../Context/sessionContext";
 import {
+  ButtonContainer,
   FieldContainer,
   Header,
   HomeContainer,
@@ -20,6 +22,16 @@ export default function Home() {
     navigator.clipboard.writeText(emailUser);
   };
 
+  const handleNotificationClick = () => {
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        new Notification("Notification Title", {
+          body: "Notification Body",
+        });
+      }
+    });
+  };
+
   return (
     <HomeContainer>
       <Header>
@@ -33,7 +45,6 @@ export default function Home() {
             type="text"
             value={emailUser === "undefined" ? "" : emailUser}
             readOnly
-            // onChange={handleInputChange}
           />
           <ButtonWithIcon
             width="25%"
@@ -44,7 +55,9 @@ export default function Home() {
             onClick={() => handleCopyClick()}
           />
         </ProvisoryContent>
-        <button onClick={loadSession}>Create email disposable</button>
+        <ButtonContainer>
+          <button onClick={loadSession}>Create email disposable</button>
+        </ButtonContainer>
       </FieldContainer>
 
       <UpdateDataContainer>
@@ -55,12 +68,16 @@ export default function Home() {
           title="Refresh"
           onClick={loadInbox}
         />
+
+        <ButtonWithIcon
+          icon={settings}
+          title="Notification ON/Off"
+          alt="Open Settings"
+          onClick={handleNotificationClick}
+        />
       </UpdateDataContainer>
 
       <Inbox />
     </HomeContainer>
   );
-}
-function copy(copyText: string) {
-  throw new Error("Function not implemented.");
 }

@@ -29,6 +29,12 @@ export const FieldContainer = styled.div`
   align-items: center;
   justify-content: center;
 
+  button {
+    width: 300px;
+    border: none;
+    border-radius: 8px;
+  }
+
   label {
     width: 100%;
     font-size: 14px;
@@ -40,12 +46,19 @@ export const FieldContainer = styled.div`
   }
 `;
 
+export const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
 export const ProvisoryContent = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
+  margin-bottom: 1rem;
   border: 1px solid ${(props) => props.theme["skyeblue"]};
 
   input {
@@ -67,13 +80,13 @@ export const ProvisoryContent = styled.div`
 `;
 
 export const UpdateDataContainer = styled.div`
-  width: 95%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-top: 3rem;
+  margin-top: 1rem;
 
   @media (min-width: 640px) {
-    width: 50%;
+    width: 80%;
   }
 `;

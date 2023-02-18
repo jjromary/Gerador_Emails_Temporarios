@@ -39,23 +39,20 @@ export default function SessionProvider({ children }: sessionProviderProps) {
     if (new Date() > formattedCurrentDate) {
       setIsExpirate(true);
       localStorage.clear();
+      localStorage.removeItem("expirate");
+      localStorage.removeItem("email");
+      localStorage.removeItem("idSession");
     } else {
       setIsExpirate(false);
     }
-
-    console.log(isExpirate);
   };
 
   setTimeout(() => {
     verifyExpirateSession();
-    console.log("Current!:", new Date());
-    console.log("Expirate:", formattedCurrentDate);
     if (isExpirate === true) {
       refreshPage();
-      // window.alert("Sessão expirada!");
     }
-    console.log("verificano validade", isExpirate);
-  }, 60000); //1 minute
+  }, 1000 * 60); //1 minute
 
   const idSessionNow = localStorage.getItem("idSession");
 
@@ -99,8 +96,9 @@ export default function SessionProvider({ children }: sessionProviderProps) {
 
   const saveLocalInbox = () => {
     const savedIinbox = JSON.stringify(inboxSession);
-    console.log("inbox", savedIinbox);
     localStorage.setItem("inbox", savedIinbox);
+
+    refreshPage;
   };
 
   const loadSession = async () => {
@@ -108,7 +106,6 @@ export default function SessionProvider({ children }: sessionProviderProps) {
     setUserSession(response.data?.data.introduceSession);
 
     localStorage.removeItem("inbox");
-    // refreshPage();
   };
 
   const loadInbox = async () => {
@@ -117,7 +114,11 @@ export default function SessionProvider({ children }: sessionProviderProps) {
     saveLocalInbox();
   };
 
-  // setTimeout(loadInbox, 15000);
+  setTimeout(() => {
+    if (emailDisposable) {
+      loadInbox();
+    }
+  }, 1000 * 15);
 
   useEffect(() => {
     setEmailDisposable(userSession?.addresses[0]?.address);

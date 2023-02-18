@@ -2,7 +2,7 @@ import { ButtonContainer } from "./styles";
 
 interface ButtonWithIconProps {
   icon?: string;
-  title: string;
+  title?: string;
   width?: string;
   height?: string;
   alt: string;
