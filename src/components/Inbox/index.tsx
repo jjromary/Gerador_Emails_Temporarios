@@ -1,4 +1,4 @@
-import { Key, useState } from "react";
+import { useState } from "react";
 import InboxItem from "../InboxItem";
 import {
   BodyEmail,
@@ -25,22 +25,17 @@ export default function Inbox() {
     <InboxContainer>
       <InboxList>
         <InboxHeader>Inbox</InboxHeader>
-        {recoverInbox?.map(
-          (
-            inbox: { fromAddr: string; headerSubject: string; text: string },
-            key: Key | null | undefined
-          ) => {
-            return (
-              <InboxItem
-                key={key}
-                fromAddr={inbox.fromAddr}
-                headerSubject={inbox.headerSubject}
-                text={inbox.text}
-                onClick={() => emailDetails(inbox.text, inbox.headerSubject)}
-              />
-            );
-          }
-        )}
+        {recoverInbox?.map((inbox: any, key: any) => {
+          return (
+            <InboxItem
+              key={key}
+              fromAddr={inbox.fromAddr}
+              headerSubject={inbox.headerSubject}
+              text={inbox.text}
+              onClick={() => emailDetails(inbox.text, inbox.headerSubject)}
+            />
+          );
+        })}
       </InboxList>
       <BodyEmail>
         <BodyEmailHeader />

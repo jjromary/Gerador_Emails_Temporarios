@@ -103,14 +103,14 @@ export default function SessionProvider({ children }: sessionProviderProps) {
 
   const loadSession = async () => {
     const response = await apiEmail.post("/tokentest", querySession);
-    setUserSession(response.data?.data.introduceSession);
+    setUserSession(response?.data?.data?.introduceSession);
 
     localStorage.removeItem("inbox");
   };
 
   const loadInbox = async () => {
     const response = await apiEmail.post("/tokentest", queryInbox);
-    setInboxSession(response.data.data.session?.mails);
+    setInboxSession(response?.data?.data?.session?.mails);
     saveLocalInbox();
   };
 
